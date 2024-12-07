@@ -1,11 +1,14 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-SECRET_KEY = 'django-insecure-j_89af+30&&4qm*8z9_(^zz8p4-ho8z_m6ylm0s$h!-p@on1_^'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-j_89af+30&&4qm*8z9_(^zz8p4-ho8z_m6ylm0s$h!-p@on1_^')
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['semo.hopto.org', '127.0.0.1', 'localhost']
 
@@ -119,3 +122,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+print(f"SECRET_KEY: {SECRET_KEY}")
+print(f"DEBUG: {DEBUG}")
